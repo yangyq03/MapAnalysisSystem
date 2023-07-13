@@ -1,12 +1,17 @@
 #ifndef MAPANALYSISSYSTEM_ROAD_H
 #define MAPANALYSISSYSTEM_ROAD_H
 
+//道路名称的最大长度
+#define maxLength 20
+
 
 #include <string>
 
 class Road {
 
 public:
+
+    Road();
 
     int getLinkId() const;
 
@@ -24,9 +29,9 @@ public:
 
     void setIsHaveName(int isHaveName);
 
-    const std::string &getRoadName() const;
+    const char *getRoadName() const;
 
-    void setRoadName(const std::string &roadName);
+    void setRoadName(char *roadName);
 
 private:
 
@@ -34,7 +39,7 @@ private:
     int category;
     int forkNumber;
     int isHaveName;
-    std::string roadName;
+    char roadName[maxLength];
 
 };
 

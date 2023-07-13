@@ -1,4 +1,7 @@
+#include <cstring>
 #include "Road.h"
+
+Road::Road() {}
 
 int Road::getLinkId() const {
     return linkId;
@@ -32,10 +35,11 @@ void Road::setIsHaveName(int m_isHaveName) {
     Road::isHaveName = m_isHaveName;
 }
 
-const std::string &Road::getRoadName() const {
+const char *Road::getRoadName() const {
     return roadName;
 }
 
-void Road::setRoadName(const std::string &m_roadName) {
-    Road::roadName = m_roadName;
+void Road::setRoadName(char *m_roadName) {
+    std::strcpy(Road::roadName, m_roadName);
 }
+

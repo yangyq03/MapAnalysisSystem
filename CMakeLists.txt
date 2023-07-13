@@ -3,4 +3,4 @@ project(MapAnalysisSystem)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(MapAnalysisSystem main.cpp FileHandler.cpp FileHandler.h FileHandler.h Road.cpp Road.h)
+add_executable(MapAnalysisSystem main.cpp BinaryFileHandler.cpp BinaryFileHandler.h BinaryFileHandler.h Road.cpp Road.h Menu.cpp Menu.h SortUtil.cpp SortUtil.h DataFileHandler.cpp DataFileHandler.h)
