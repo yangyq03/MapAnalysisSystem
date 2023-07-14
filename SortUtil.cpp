@@ -1,20 +1,39 @@
 #include <chrono>
-#include "SortUtil.h"
+#include <iostream>
+#include <algorithm>
+#include "include/SortUtil.h"
 
-SortUtil::SortUtil() {
+void SortUtil::sortMenu() {
+    int flag;
+    do {
+        cout << "\nÅÅĞò" << endl;
+        cout << "-----------------------------------------------------------" << endl;
+        cout << "\t\t1.Ã°ÅİÅÅĞò" << endl;
+        cout << "\t\t2.¿ìËÙÅÅĞò" << endl;
+        cout << "\t\t3.²åÈëÅÅĞò" << endl;
+        cout << "\t\t4.ĞÔÄÜ²âÊÔ\n" << endl;
+        cout << "\t\t0.·µ»Ø" << endl;
+        cout << "\n×¢£ºÅÅĞò¹æÔòÎª²íÂ·ÊıÉıĞòÅÅĞò" << endl;
+        cout << "-----------------------------------------------------------" << endl;
+        cout << "ÇëÑ¡Ôñ£º";
+        cin >> flag;
+        if (!(flag >= 0 && flag <= 4)) {
+            cout << "ÇëÑ¡ÔñÕıÈ·µÄÑ¡Ïî!" << endl;
+        }
+    } while (!(flag >= 0 && flag <= 4));
 
-    //ç”¨æˆ·é€‰æ‹©çš„æ ‡è®°å˜é‡
-    int i = sortMenu();
-
-    switch (i) {
+    switch (flag) {
         case 1:
             bubbleSort();
+            cout << "ÅÅĞò³É¹¦£¡" << endl;
             break;
         case 2:
             quickSort();
+            cout << "ÅÅĞò³É¹¦£¡" << endl;
             break;
         case 3:
             insertionSort();
+            cout << "ÅÅĞò³É¹¦£¡" << endl;
             break;
         case 4:
             performanceTest();
@@ -26,62 +45,52 @@ SortUtil::SortUtil() {
     }
 }
 
-int SortUtil::sortMenu() {
-    int flag;
-    do {
-        cout << "æ’åº" << endl;
-        cout << "---------------------------------" << endl;
-        cout << "\t1.å†’æ³¡æ’åº" << endl;
-        cout << "\t2.å¿«é€Ÿæ’åº" << endl;
-        cout << "\t3.æ’å…¥æ’åº" << endl;
-        cout << "\t4.æ€§èƒ½æµ‹è¯•\n" << endl;
-        cout << "0.è¿”å›" << endl;
-        cout << "---------------------------------" << endl;
-        cout << "è¯·é€‰æ‹©ï¼š";
-        cin >> flag;
-        if (!(flag >= 0 && flag <= 4)) {
-            cout << "è¯·é€‰æ‹©æ­£ç¡®çš„é€‰é¡¹!" << endl;
-        }
-    } while (!(flag >= 0 && flag <= 4));
-    return flag;
-}
-
 void SortUtil::bubbleSort() {
     for (int i = 0; i < size - 1; ++i) {
         for (int j = 0; j < size - 1 - i; ++j) {
-            if (BinaryFileHandler::roads[j].getForkNumber() > BinaryFileHandler::roads[j + 1].getForkNumber()) {
-                swap(BinaryFileHandler::roads[j], BinaryFileHandler::roads[j + 1]);
+            if (Menu::roads[j + 1] < Menu::roads[j]) {
+                swap(Menu::roads[j], Menu::roads[j + 1]);
             }
         }
     }
 }
 
 void SortUtil::quickSort() {
-
+    //Ö±½Óµ÷ÓÃalgorithmÖĞµÄsortº¯Êı£¨¿ìËÙÅÅĞò£©
+    std::sort(Menu::roads.begin(), Menu::roads.end());
 }
 
 void SortUtil::insertionSort() {
-
+    for (int i = 0; i < Menu::roads.size(); ++i) {
+        for (int j = i; j > 0; --j) {
+            //Ñ°ÕÒÒ»¸öÊÊºÏµÄÎ»ÖÃ´æ·Å£¨²åÈë£©
+            if (Menu::roads[j] < Menu::roads[j - 1]) {
+                swap(Menu::roads[j], Menu::roads[j - 1]);
+            } else {
+                break;
+            }
+        }
+    }
 }
 
 void SortUtil::performanceTest() {
-    //åˆ†åˆ«æ±‚å‡ºä¸‰ä¸ªæ’åºæ‰€ç”¨çš„æ—¶é—´
+    //·Ö±ğÇó³öÈı¸öÅÅĞòËùÓÃµÄÊ±¼ä
     long long int time_b = getRunTotalTime(&SortUtil::bubbleSort);
     long long int time_q = getRunTotalTime(&SortUtil::quickSort);
     long long int time_i = getRunTotalTime(&SortUtil::insertionSort);
-    cout << "å†’æ³¡æ’åºæ‰€ç”¨æ—¶é—´ä¸ºï¼š" << time_b << "å¿«é€Ÿæ’åºæ‰€ç”¨æ—¶é—´ä¸ºï¼š" << time_q << "æ’å…¥æ’åºæ‰€ç”¨æ—¶é—´ä¸ºï¼š" << time_i
-         << endl;
+    cout << "Ã°ÅİÅÅĞòËùÓÃÊ±¼äÎª£º" << time_b << "Î¢Ãë£¬¿ìËÙÅÅĞòËùÓÃÊ±¼äÎª£º" << time_q << "Î¢Ãë£¬²åÈëÅÅĞòËùÓÃÊ±¼äÎª£º"
+         << time_i << "Î¢Ãë" << endl;
 }
 
-long long int SortUtil::getRunTotalTime(SortingFunction function) { //ä½¿ç”¨çš„å‡½æ•°æŒ‡é’ˆï¼Œå°†ç®—æ³•å‡½æ•°é€šè¿‡å‚æ•°çš„å½¢å¼ä¼ é€’è¿‡æ¥
-    //è·å–æ‰§è¡Œä¹‹å‰çš„æ—¶é—´ï¼Œç²¾ç¡®åˆ°æ¯«ç§’
-    long long int beforeTime = chrono::duration_cast<chrono::milliseconds>(
+long long int SortUtil::getRunTotalTime(SortingFunction function) { //Ê¹ÓÃµÄº¯ÊıÖ¸Õë£¬½«Ëã·¨º¯ÊıÍ¨¹ı²ÎÊıµÄĞÎÊ½´«µİ¹ıÀ´
+    //»ñÈ¡Ö´ĞĞÖ®Ç°µÄÊ±¼ä£¬¾«È·µ½Î¢Ãë
+    long long int beforeTime = chrono::duration_cast<chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
-    //ä½¿ç”¨thisæŒ‡é’ˆè°ƒç”¨æˆå‘˜å‡½æ•°
+    //Ê¹ÓÃthisÖ¸Õëµ÷ÓÃ³ÉÔ±º¯Êı
     (this->*function)();
-    //æ‰§è¡Œä¹‹åçš„æ—¶é—´
-    long long int afterTime = chrono::duration_cast<chrono::milliseconds>(
+    //Ö´ĞĞÖ®ºóµÄÊ±¼ä
+    long long int afterTime = chrono::duration_cast<chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
-    //è¿”å›æ’åºç®—æ³•æ‰§è¡Œçš„æ€»æ—¶é—´
+    //·µ»ØÅÅĞòËã·¨Ö´ĞĞµÄ×ÜÊ±¼ä
     return afterTime - beforeTime;
 }

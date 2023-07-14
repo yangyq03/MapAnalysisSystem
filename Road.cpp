@@ -1,5 +1,5 @@
 #include <cstring>
-#include "Road.h"
+#include "include/Road.h"
 
 Road::Road() {}
 
@@ -43,3 +43,6 @@ void Road::setRoadName(char *m_roadName) {
     std::strcpy(Road::roadName, m_roadName);
 }
 
+bool Road::operator<(const Road &other) const {
+    return this->getForkNumber() < other.getForkNumber();
+}
