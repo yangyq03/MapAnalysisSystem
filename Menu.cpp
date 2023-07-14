@@ -19,13 +19,13 @@ void Menu::print(const std::string &binaryFileName, const std::string &dataFileN
             cout << "/*********************************************************/" << endl;
 
             cout << "-----------------------------------------------------------" << endl;
-            cout << "\t\t 1.读取文件(二进制文件）" << endl;
-            cout << "\t\t 2.排序" << endl;
-            cout << "\t\t 3.信息查询" << endl;
-            cout << "\t\t 4.数据导入(文本文件)" << endl;
-            cout << "\t\t 5.数据导出(文本文件)" << endl;
-            cout << "\t\t 6.文件更新(二进制文件)" << endl;
-            cout << "\t\t 7.打印当前所有数据\n" << endl;
+            cout << "\t\t 1.读取文件(二进制文件)" << endl;
+            cout << "\t\t 2.写入文件(二进制文件)" << endl;
+            cout << "\t\t 3.输出当前所有数据" << endl;
+            cout << "\t\t 4.排序" << endl;
+            cout << "\t\t 5.信息查询" << endl;
+            cout << "\t\t 6.数据导入(文本文件)" << endl;
+            cout << "\t\t 7.数据导出(文本文件)\n" << endl;
             cout << "\t\t 0.退出" << endl;
             cout << "-----------------------------------------------------------" << endl;
 
@@ -47,34 +47,34 @@ void Menu::print(const std::string &binaryFileName, const std::string &dataFileN
                     cout << "当前暂无数据，请导入数据再尝试!" << endl;
                     break;
                 }
-                sortUtil.sortMenu();
+                BinaryFileHandler::writeFile(binaryFileName);
                 break;
             case 3:
+                printAll();
+                break;
+            case 4:
                 if (roads.empty()) {
                     cout << "当前暂无数据，请导入数据再尝试!" << endl;
                     break;
                 }
-
-                break;
-            case 4:
-                DataFileHandler::readFile(dataFileName);
+                sortUtil.sortMenu();
                 break;
             case 5:
                 if (roads.empty()) {
                     cout << "当前暂无数据，请导入数据再尝试!" << endl;
                     break;
                 }
-                DataFileHandler::writeFile();
+
                 break;
             case 6:
+                DataFileHandler::readFile(dataFileName);
+                break;
+            case 7:
                 if (roads.empty()) {
                     cout << "当前暂无数据，请导入数据再尝试!" << endl;
                     break;
                 }
-                BinaryFileHandler::writeFile(binaryFileName);
-                break;
-            case 7:
-                printAll();
+                DataFileHandler::writeFile();
                 break;
             case 0:
                 return;

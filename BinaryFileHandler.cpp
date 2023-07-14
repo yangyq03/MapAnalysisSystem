@@ -15,17 +15,19 @@ bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
         return false;
     }
 
-    //是否清空roads列表中的原有数据
-    std::cout << "是否清空roads列表中的原有数据?(y/n)" << std::endl;
+    //是否保留roads列表中的原有数据
+    std::cout << "文件读取成功，是否保留当前roads列表中的数据?(y/n)，取消请输入0" << std::endl;
     std::string flag;
     do {
         std::cin >> flag;
-        if (flag != "y" && flag != "Y" && flag != "n" && flag != "N") {
+        if (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0") {
             std::cout << "请输入正确的指令！" << std::endl;
         }
-    } while (flag != "y" && flag != "Y" && flag != "n" && flag != "N");
-    if (flag == "y" || flag == "Y") {
+    } while (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0");
+    if (flag == "n" || flag == "N") {
         Menu::roads.clear();
+    } else if (flag == "0") {
+        return false;
     }
 
     //数据的条数
@@ -50,7 +52,7 @@ bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
             fileInStream.close();
         }
     }
-    std::cout << "数据读取成功，共" << count << "条数据" << std::endl;
+    std::cout << "数据读取成功，共" << count << "条" << std::endl;
 
     //关闭输入流
     fileInStream.close();
@@ -59,6 +61,11 @@ bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
 }
 
 bool BinaryFileHandler::writeFile(const std::string &binaryFileName) {
+
+    std::cout << "是否进行数据更新？是请输入y" << std::endl;
+    std::string flag;
+    std::cin >> flag;
+    if (flag != "y") return false;
 
     //创建一个文件输出流对象，并以二进制的方式打开文件
     std::ofstream fileOutStream(binaryFileName, std::ios::out | std::ios::binary);
@@ -69,6 +76,9 @@ bool BinaryFileHandler::writeFile(const std::string &binaryFileName) {
         return false;
     }
 
+    //数据的条数
+    int count = 0;
+
     //进行文件数据的更新
     for (const auto &road: Menu::roads) {
         fileOutStream.write(reinterpret_cast<const char *>(&road), sizeof(Road));
@@ -78,9 +88,10 @@ bool BinaryFileHandler::writeFile(const std::string &binaryFileName) {
             fileOutStream.close();
             return false;
         }
+        ++count;
     }
 
-    std::cout << "数据写入成功" << std::endl;
+    std::cout << "数据写入成功，共" << count << "条" << std::endl;
 
     return true;
 }

@@ -3,13 +3,6 @@
 
 bool DataFileHandler::readFile(const std::string &dataFileName) {
 
-    /*
-    //得到文件路径
-    std::string fileNames;
-    std::cout << "请输入.txt文件的绝对路径：" << std::endl;
-    std::cin >> fileNames;
-     */
-
     //打开文件
     FILE *fp_open = fopen(dataFileName.c_str(), "r");
 
@@ -22,17 +15,19 @@ bool DataFileHandler::readFile(const std::string &dataFileName) {
     //统计数据的条数
     int count = 0;
 
-    //是否清空roads列表中的原有数据
-    std::cout << "是否清空roads列表中的原有数据?(y/n)" << std::endl;
+    //是否保留roads列表中的原有数据
+    std::cout << "文件读取成功，是否保留当前roads列表中的数据?(y/n)，取消请输入0" << std::endl;
     std::string flag;
     do {
         std::cin >> flag;
-        if (flag != "y" && flag != "Y" && flag != "n" && flag != "N") {
+        if (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0") {
             std::cout << "请输入正确的指令！" << std::endl;
         }
-    } while (flag != "y" && flag != "Y" && flag != "n" && flag != "N");
-    if (flag == "y" || flag == "Y") {
+    } while (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0");
+    if (flag == "n" || flag == "N") {
         Menu::roads.clear();
+    } else if (flag == "0") {
+        return false;
     }
 
     //开始读文件
@@ -45,7 +40,7 @@ bool DataFileHandler::readFile(const std::string &dataFileName) {
         char roadName[maxLength];
 
         //一直读取到文件结尾
-        if (fscanf(fp_open, "%d %d %d %d ", &linkId, &category, &forkNumber, &isHaveName) == EOF) {
+        if (fscanf(fp_open, "%d %d %d %d", &linkId, &category, &forkNumber, &isHaveName) == EOF) {
             break;
         }
 
@@ -82,16 +77,18 @@ bool DataFileHandler::readFile(const std::string &dataFileName) {
 
 bool DataFileHandler::writeFile() {
 
-    const char *fileName;
+    std::cout << "是否进行数据导出？是请输入y" << std::endl;
+    std::string flag;
+    std::cin >> flag;
+    if (flag != "y") return false;
 
-    std::string temp;
     std::cout << "请输入导出文件的绝对路径：（不包含扩展名<.txt>，且该目录下不应含有重名的文件，否则会被覆盖）" << std::endl;
-    std::cin >> temp;
-    temp += ".txt";
-    fileName = temp.c_str();
+    std::string fileName;
+    std::cin >> fileName;
+    fileName += ".txt";
 
     //打开文件
-    FILE *fp_open = fopen(fileName, "w+");
+    FILE *fp_open = fopen(fileName.c_str(), "w+");
 
     //判空
     if (fp_open == nullptr) {
@@ -99,13 +96,23 @@ bool DataFileHandler::writeFile() {
         return false;
     }
 
+    //统计数据的条数
+    int count = 0;
+
     //依次写入数据到文件
     for (const auto &item: Menu::roads) {
+        if (!item.getIsHaveName()) {
+            fprintf(fp_open, "%d %d %d %d\n", item.getLinkId(), item.getCategory(), item.getForkNumber(),
+                    item.getIsHaveName());
+            ++count;
+            continue;
+        }
         fprintf(fp_open, "%d %d %d %d %s\n", item.getLinkId(), item.getCategory(), item.getForkNumber(),
                 item.getIsHaveName(), item.getRoadName());
+        ++count;
     }
 
-    std::cout << "数据写入成功！" << std::endl;
+    std::cout << count << "条数据导出成功！" << std::endl;
 
     fclose(fp_open);
 
