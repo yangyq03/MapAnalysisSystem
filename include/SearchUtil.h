@@ -1,0 +1,10 @@
+#ifndef MAPANALYSISSYSTEM_SEARCHUTIL_H
+#define MAPANALYSISSYSTEM_SEARCHUTIL_H
+
+
+class SearchUtil {
+
+};
+
+
+#endif
