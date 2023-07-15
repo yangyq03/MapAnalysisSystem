@@ -1,4 +1,4 @@
-#include "include/Menu.h"
+#include "include/MainActivity.h"
 #include "include/BinaryFileHandler.h"
 
 //二进制文件的绝对路径
@@ -7,6 +7,6 @@ const std::string BINARY_FILE_NAME = R"(E:\C++\MapAnalysisSystem\TextFile\Binary
 const std::string DATA_FILE_NAME = R"(E:\C++\MapAnalysisSystem\TextFile\DataFile.txt)";
 
 int main() {
-    Menu::print(BINARY_FILE_NAME, DATA_FILE_NAME);
+    MainActivity::mainProcess(BINARY_FILE_NAME, DATA_FILE_NAME);
     return 0;
 }

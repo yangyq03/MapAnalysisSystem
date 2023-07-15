@@ -4,7 +4,9 @@
     <file url="file://$PROJECT_DIR$/BinaryFileHandler.cpp" charset="GBK" />
     <file url="file://$PROJECT_DIR$/BinaryFileHandler.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/DataFileHandler.cpp" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/Menu.cpp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/MainActivity.cpp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/PrintUtil.cpp" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/SearchAndModifyUtils.cpp" charset="GBK" />
     <file url="file://$PROJECT_DIR$/SortUtil.cpp" charset="GBK" />
     <file url="file://$PROJECT_DIR$/include/BinaryFileHandler.h" charset="GBK" />
     <file url="file://$PROJECT_DIR$/main.cpp" charset="GBK" />

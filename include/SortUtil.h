@@ -1,34 +1,37 @@
 #ifndef MAPANALYSISSYSTEM_SORTUTIL_H
 #define MAPANALYSISSYSTEM_SORTUTIL_H
 
-#include "Menu.h"
+#include "Road.h"
+#include "MainActivity.h"
 
 using namespace std;
 
 class SortUtil {
 public:
     // 定义函数指针类型
-    typedef void (SortUtil::*SortingFunction)();
+    typedef void (*SortingFunction)(std::vector<Road> &arr);
 
-    //提示菜单
-    void sortMenu();
+    //排序主菜单
+    static void sortMenu();
 
     //冒泡排序
-    void bubbleSort();
+    static void bubbleSort(std::vector<Road> &arr);
 
     //选择排序
-    void quickSort();
+    static void quickSort(std::vector<Road> &arr);
 
     //插入排序
-    void insertionSort();
+    static void insertionSort(std::vector<Road> &arr);
 
     //排序性能测试
-    void performanceTest();
+    static void performanceTest();
 
     //计算某个排序算法函数所耗的时间
-    long long int getRunTotalTime(SortingFunction function);
+    static long long int getRunTotalTime(SortingFunction function);
 
-    const int size = (int) Menu::roads.size();
+private:
+    //用于性能测试时的临时存储
+    static std::vector<Road> tempData;
 };
 
 #endif

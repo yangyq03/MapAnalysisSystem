@@ -1,15 +1,16 @@
 #include <iostream>
-#include "include/Menu.h"
 #include "include/SortUtil.h"
+#include "include/PrintUtil.h"
+#include "include/SearchAndModifyUtils.h"
+#include "include/MainActivity.h"
 #include "include/DataFileHandler.h"
 #include "include/BinaryFileHandler.h"
 
 using namespace std;
 
-void Menu::print(const std::string &binaryFileName, const std::string &dataFileName) {
+void MainActivity::mainProcess(const std::string &binaryFileName, const std::string &dataFileName) {
     while (true) {
-        int flag = -1;
-        SortUtil sortUtil;
+        int flag;
         do {
             system("cls");
             cout << "/*************************Welcome*************************/" << endl;
@@ -23,7 +24,7 @@ void Menu::print(const std::string &binaryFileName, const std::string &dataFileN
             cout << "\t\t 2.写入文件(二进制文件)" << endl;
             cout << "\t\t 3.输出当前所有数据" << endl;
             cout << "\t\t 4.排序" << endl;
-            cout << "\t\t 5.信息查询" << endl;
+            cout << "\t\t 5.信息查询与修改" << endl;
             cout << "\t\t 6.数据导入(文本文件)" << endl;
             cout << "\t\t 7.数据导出(文本文件)\n" << endl;
             cout << "\t\t 0.退出" << endl;
@@ -50,21 +51,21 @@ void Menu::print(const std::string &binaryFileName, const std::string &dataFileN
                 BinaryFileHandler::writeFile(binaryFileName);
                 break;
             case 3:
-                printAll();
+                PrintUtil::print(roads);
                 break;
             case 4:
                 if (roads.empty()) {
                     cout << "当前暂无数据，请导入数据再尝试!" << endl;
                     break;
                 }
-                sortUtil.sortMenu();
+                SortUtil::sortMenu();
                 break;
             case 5:
                 if (roads.empty()) {
                     cout << "当前暂无数据，请导入数据再尝试!" << endl;
                     break;
                 }
-
+                SearchAndModifyUtils::searchMenu();
                 break;
             case 6:
                 DataFileHandler::readFile(dataFileName);
@@ -85,19 +86,4 @@ void Menu::print(const std::string &binaryFileName, const std::string &dataFileN
     }
 }
 
-void Menu::printAll() {
-    cout << "--------------------------------------------------------------------" << endl;
-    if (roads.empty()) cout << "\t\t\t    无" << endl;
-    for (const auto &item: roads) {
-        cout << "LinkID\t分类编号\t岔路数\t有无名称\t\t道路名称\n" << endl;
-        cout << item.getLinkId() << "\t" << item.getCategory() << "\t\t" << item.getForkNumber()
-             << "\t" << item.getIsHaveName() << "\t\t\t" << item.getRoadName() << endl;
-    }
-    cout << "--------------------------------------------------------------------" << endl;
-    if (!roads.empty()) {
-        cout << "\t\t\t总共" << roads.size() << "条数据！" << endl;
-        cout << "--------------------------------------------------------------------" << endl;
-    }
-}
-
-std::vector<Road> Menu::roads;
+std::vector<Road> MainActivity::roads;

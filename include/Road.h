@@ -36,6 +36,7 @@ public:
     //重载运算符 <
     bool operator<(const Road &other) const;
 
+
 private:
 
     int linkId;

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "include/Road.h"
 #include "include/BinaryFileHandler.h"
-#include "include/Menu.h"
+#include "include/MainActivity.h"
 
 bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
 
@@ -25,7 +25,7 @@ bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
         }
     } while (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0");
     if (flag == "n" || flag == "N") {
-        Menu::roads.clear();
+        MainActivity::roads.clear();
     } else if (flag == "0") {
         return false;
     }
@@ -42,7 +42,7 @@ bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
         //fileInStream.gcount()会返回上一次读取操作从流中成功读取的字节数
         if (fileInStream.gcount() == sizeof(Road)) {
             ++count;
-            Menu::roads.push_back(road);
+            MainActivity::roads.push_back(road);
         } else if (fileInStream.eof()) {
             //文件读取完毕
             break;
@@ -80,7 +80,7 @@ bool BinaryFileHandler::writeFile(const std::string &binaryFileName) {
     int count = 0;
 
     //进行文件数据的更新
-    for (const auto &road: Menu::roads) {
+    for (const auto &road: MainActivity::roads) {
         fileOutStream.write(reinterpret_cast<const char *>(&road), sizeof(Road));
         if (!fileOutStream) {
             //数据写入失败

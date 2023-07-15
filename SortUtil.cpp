@@ -13,7 +13,7 @@ void SortUtil::sortMenu() {
         cout << "\t\t3.插入排序" << endl;
         cout << "\t\t4.性能测试\n" << endl;
         cout << "\t\t0.返回" << endl;
-        cout << "\n注：排序规则按岔路数升序排序" << endl;
+        cout << "\n注：排序规则按岔路数升序排序，性能测试不会排序当前数据" << endl;
         cout << "-----------------------------------------------------------" << endl;
         cout << "请选择：";
         cin >> flag;
@@ -24,19 +24,20 @@ void SortUtil::sortMenu() {
 
     switch (flag) {
         case 1:
-            bubbleSort();
+            bubbleSort(MainActivity::roads);
             cout << "排序成功！" << endl;
             break;
         case 2:
-            quickSort();
+            quickSort(MainActivity::roads);
             cout << "排序成功！" << endl;
             break;
         case 3:
-            insertionSort();
+            insertionSort(MainActivity::roads);
             cout << "排序成功！" << endl;
             break;
         case 4:
             performanceTest();
+            cout << "测试完毕！" << endl;
             break;
         case 0:
             return;
@@ -45,27 +46,29 @@ void SortUtil::sortMenu() {
     }
 }
 
-void SortUtil::bubbleSort() {
+void SortUtil::bubbleSort(std::vector<Road> &arr) {
+    auto size = arr.size();
     for (int i = 0; i < size - 1; ++i) {
         for (int j = 0; j < size - 1 - i; ++j) {
-            if (Menu::roads[j + 1] < Menu::roads[j]) {
-                swap(Menu::roads[j], Menu::roads[j + 1]);
+            if (arr[j + 1] < arr[j]) {
+                swap(arr[j], arr[j + 1]);
             }
         }
     }
 }
 
-void SortUtil::quickSort() {
+void SortUtil::quickSort(std::vector<Road> &arr) {
     //直接调用algorithm中的sort函数（快速排序）
-    std::sort(Menu::roads.begin(), Menu::roads.end());
+    std::sort(arr.begin(), arr.end());
 }
 
-void SortUtil::insertionSort() {
-    for (int i = 0; i < Menu::roads.size(); ++i) {
+void SortUtil::insertionSort(std::vector<Road> &arr) {
+    auto size = arr.size();
+    for (int i = 0; i < size; ++i) {
         for (int j = i; j > 0; --j) {
             //寻找一个适合的位置存放（插入）
-            if (Menu::roads[j] < Menu::roads[j - 1]) {
-                swap(Menu::roads[j], Menu::roads[j - 1]);
+            if (arr[j] < arr[j - 1]) {
+                swap(arr[j], arr[j - 1]);
             } else {
                 break;
             }
@@ -75,22 +78,32 @@ void SortUtil::insertionSort() {
 
 void SortUtil::performanceTest() {
     //分别求出三个排序所用的时间
-    long long int time_b = getRunTotalTime(&SortUtil::bubbleSort);
-    long long int time_q = getRunTotalTime(&SortUtil::quickSort);
-    long long int time_i = getRunTotalTime(&SortUtil::insertionSort);
+    long long int time_b = getRunTotalTime(bubbleSort);
+    long long int time_q = getRunTotalTime(quickSort);
+    long long int time_i = getRunTotalTime(insertionSort);
     cout << "冒泡排序所用时间为：" << time_b << "微秒，快速排序所用时间为：" << time_q << "微秒，插入排序所用时间为："
          << time_i << "微秒" << endl;
 }
 
 long long int SortUtil::getRunTotalTime(SortingFunction function) { //使用的函数指针，将算法函数通过参数的形式传递过来
+    //将数据临时存储到临时数组中
+    if (tempData.size() < MainActivity::roads.size()) {
+        //为临时数组分配空间，防止越界
+        tempData.resize(MainActivity::roads.size());
+    }
+    std::copy(MainActivity::roads.begin(), MainActivity::roads.end(), tempData.begin());
     //获取执行之前的时间，精确到微秒
     long long int beforeTime = chrono::duration_cast<chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
-    //使用this指针调用成员函数
-    (this->*function)();
+    //调用传递过来的函数
+    function(tempData);
     //执行之后的时间
     long long int afterTime = chrono::duration_cast<chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
+    //清空临时数组
+    tempData.clear();
     //返回排序算法执行的总时间
     return afterTime - beforeTime;
 }
+
+std::vector<Road> SortUtil::tempData;

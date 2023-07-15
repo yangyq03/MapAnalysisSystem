@@ -25,7 +25,7 @@ bool DataFileHandler::readFile(const std::string &dataFileName) {
         }
     } while (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0");
     if (flag == "n" || flag == "N") {
-        Menu::roads.clear();
+        MainActivity::roads.clear();
     } else if (flag == "0") {
         return false;
     }
@@ -54,7 +54,7 @@ bool DataFileHandler::readFile(const std::string &dataFileName) {
         //如果没有名字就跳过读取roadName
         if (!isHaveName) {
             road.setRoadName((char *) "--\0");
-            Menu::roads.push_back(road);
+            MainActivity::roads.push_back(road);
             ++count;
             continue;
         }
@@ -64,7 +64,7 @@ bool DataFileHandler::readFile(const std::string &dataFileName) {
         road.setRoadName(roadName);
 
         //把临时的road对象push到动态数组中
-        Menu::roads.push_back(road);
+        MainActivity::roads.push_back(road);
         ++count;
     }
 
@@ -100,7 +100,7 @@ bool DataFileHandler::writeFile() {
     int count = 0;
 
     //依次写入数据到文件
-    for (const auto &item: Menu::roads) {
+    for (const auto &item: MainActivity::roads) {
         if (!item.getIsHaveName()) {
             fprintf(fp_open, "%d %d %d %d\n", item.getLinkId(), item.getCategory(), item.getForkNumber(),
                     item.getIsHaveName());
