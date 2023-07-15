@@ -16,7 +16,7 @@ bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
     }
 
     //是否保留roads列表中的原有数据
-    std::cout << "文件读取成功，是否保留当前roads列表中的数据?(y/n)，取消请输入0" << std::endl;
+    std::cout << "文件读取成功，是否保留当前数据?(y/n)，取消请输入0" << std::endl;
     std::string flag;
     do {
         std::cin >> flag;
