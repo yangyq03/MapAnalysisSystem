@@ -6,22 +6,22 @@
 
 bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
 
-    //´´½¨Ò»¸öÎÄ¼şÊäÈëÁ÷¶ÔÏó£¬²¢ÒÔ¶ş½øÖÆµÄ·½Ê½´ò¿ªÎÄ¼ş
+    //åˆ›å»ºä¸€ä¸ªæ–‡ä»¶è¾“å…¥æµå¯¹è±¡ï¼Œå¹¶ä»¥äºŒè¿›åˆ¶çš„æ–¹å¼æ‰“å¼€æ–‡ä»¶
     std::ifstream fileInStream(binaryFileName, std::ios::in | std::ios::binary);
 
-    //ÅĞ¿Õ
+    //åˆ¤ç©º
     if (!fileInStream.is_open()) {
-        std::cout << "ÎÄ¼ş¶ÁÈ¡Ê§°Ü£¬Çë¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ£¡" << std::endl;
+        std::cout << "æ–‡ä»¶è¯»å–å¤±è´¥ï¼Œè¯·æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨ï¼" << std::endl;
         return false;
     }
 
-    //ÊÇ·ñ±£ÁôroadsÁĞ±íÖĞµÄÔ­ÓĞÊı¾İ
-    std::cout << "ÎÄ¼ş¶ÁÈ¡³É¹¦£¬ÊÇ·ñ±£Áôµ±Ç°Êı¾İ?(y/n)£¬È¡ÏûÇëÊäÈë0" << std::endl;
+    //æ˜¯å¦ä¿ç•™roadsåˆ—è¡¨ä¸­çš„åŸæœ‰æ•°æ®
+    std::cout << "æ–‡ä»¶è¯»å–æˆåŠŸï¼Œæ˜¯å¦ä¿ç•™å½“å‰æ•°æ®?(y/n)ï¼Œå–æ¶ˆè¯·è¾“å…¥0" << std::endl;
     std::string flag;
     do {
         std::cin >> flag;
         if (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0") {
-            std::cout << "ÇëÊäÈëÕıÈ·µÄÖ¸Áî£¡" << std::endl;
+            std::cout << "è¯·è¾“å…¥æ­£ç¡®çš„æŒ‡ä»¤ï¼" << std::endl;
         }
     } while (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0");
     if (flag == "n" || flag == "N") {
@@ -30,31 +30,31 @@ bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
         return false;
     }
 
-    //Êı¾İµÄÌõÊı
+    //æ•°æ®çš„æ¡æ•°
     int count = 0;
 
-    //¿ªÊ¼½øĞĞÎÄ¼şÊı¾İµÄ¶ÁÈ¡
+    //å¼€å§‹è¿›è¡Œæ–‡ä»¶æ•°æ®çš„è¯»å–
     while (true) {
-        //´´½¨Ò»¸öÁÙÊ±µÄRoad¶ÔÏó
+        //åˆ›å»ºä¸€ä¸ªä¸´æ—¶çš„Roadå¯¹è±¡
         Road road;
-        //¶ÁÈ¡Êı¾İ
+        //è¯»å–æ•°æ®
         fileInStream.read(reinterpret_cast<char *>(&road), sizeof(Road));
-        //fileInStream.gcount()»á·µ»ØÉÏÒ»´Î¶ÁÈ¡²Ù×÷´ÓÁ÷ÖĞ³É¹¦¶ÁÈ¡µÄ×Ö½ÚÊı
+        //fileInStream.gcount()ä¼šè¿”å›ä¸Šä¸€æ¬¡è¯»å–æ“ä½œä»æµä¸­æˆåŠŸè¯»å–çš„å­—èŠ‚æ•°
         if (fileInStream.gcount() == sizeof(Road)) {
             ++count;
             MainActivity::roads.push_back(road);
         } else if (fileInStream.eof()) {
-            //ÎÄ¼ş¶ÁÈ¡Íê±Ï
+            //æ–‡ä»¶è¯»å–å®Œæ¯•
             break;
         } else {
-            //ÎÄ¼ş¶ÁÈ¡´íÎó
-            std::cout << "ÎÄ¼ş¶ÁÈ¡´íÎó£¬ÎŞĞ§µÄÎÄ±¾ÄÚÈİ" << std::endl;
+            //æ–‡ä»¶è¯»å–é”™è¯¯
+            std::cout << "æ–‡ä»¶è¯»å–é”™è¯¯ï¼Œæ— æ•ˆçš„æ–‡æœ¬å†…å®¹" << std::endl;
             fileInStream.close();
         }
     }
-    std::cout << "Êı¾İ¶ÁÈ¡³É¹¦£¬¹²" << count << "Ìõ" << std::endl;
+    std::cout << "æ•°æ®è¯»å–æˆåŠŸï¼Œå…±" << count << "æ¡" << std::endl;
 
-    //¹Ø±ÕÊäÈëÁ÷
+    //å…³é—­è¾“å…¥æµ
     fileInStream.close();
 
     return true;
@@ -62,36 +62,36 @@ bool BinaryFileHandler::readFile(const std::string &binaryFileName) {
 
 bool BinaryFileHandler::writeFile(const std::string &binaryFileName) {
 
-    std::cout << "ÊÇ·ñ½øĞĞÊı¾İ¸üĞÂ£¿ÊÇÇëÊäÈëy" << std::endl;
+    std::cout << "æ˜¯å¦è¿›è¡Œæ•°æ®æ›´æ–°ï¼Ÿæ˜¯è¯·è¾“å…¥y" << std::endl;
     std::string flag;
     std::cin >> flag;
     if (flag != "y") return false;
 
-    //´´½¨Ò»¸öÎÄ¼şÊä³öÁ÷¶ÔÏó£¬²¢ÒÔ¶ş½øÖÆµÄ·½Ê½´ò¿ªÎÄ¼ş
+    //åˆ›å»ºä¸€ä¸ªæ–‡ä»¶è¾“å‡ºæµå¯¹è±¡ï¼Œå¹¶ä»¥äºŒè¿›åˆ¶çš„æ–¹å¼æ‰“å¼€æ–‡ä»¶
     std::ofstream fileOutStream(binaryFileName, std::ios::out | std::ios::binary);
 
-    //ÅĞ¿Õ
+    //åˆ¤ç©º
     if (!fileOutStream.is_open()) {
-        std::cout << "Êı¾İĞ´ÈëÊ§°Ü£¬Çë¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ£¡" << std::endl;
+        std::cout << "æ•°æ®å†™å…¥å¤±è´¥ï¼Œè¯·æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨ï¼" << std::endl;
         return false;
     }
 
-    //Êı¾İµÄÌõÊı
+    //æ•°æ®çš„æ¡æ•°
     int count = 0;
 
-    //½øĞĞÎÄ¼şÊı¾İµÄ¸üĞÂ
+    //è¿›è¡Œæ–‡ä»¶æ•°æ®çš„æ›´æ–°
     for (const auto &road: MainActivity::roads) {
         fileOutStream.write(reinterpret_cast<const char *>(&road), sizeof(Road));
         if (!fileOutStream) {
-            //Êı¾İĞ´ÈëÊ§°Ü
-            std::cout << "Êı¾İĞ´ÈëÊ§°Ü" << std::endl;
+            //æ•°æ®å†™å…¥å¤±è´¥
+            std::cout << "æ•°æ®å†™å…¥å¤±è´¥" << std::endl;
             fileOutStream.close();
             return false;
         }
         ++count;
     }
 
-    std::cout << "Êı¾İĞ´Èë³É¹¦£¬¹²" << count << "Ìõ" << std::endl;
+    std::cout << "æ•°æ®å†™å…¥æˆåŠŸï¼Œå…±" << count << "æ¡" << std::endl;
 
     return true;
 }

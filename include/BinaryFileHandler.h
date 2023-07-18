@@ -7,10 +7,10 @@ class BinaryFileHandler {
 
 public:
 
-    //¶ÁÎÄ¼þ
+    //è¯»æ–‡ä»¶
     static bool readFile(const std::string &binaryFileName);
 
-    //Ð´ÎÄ¼þ
+    //å†™æ–‡ä»¶
     static bool writeFile(const std::string &binaryFileName);
 
 };

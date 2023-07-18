@@ -6,38 +6,38 @@
 void SortUtil::sortMenu() {
     int flag;
     do {
-        cout << "\nÅÅĞò" << endl;
+        cout << "\næ’åº" << endl;
         cout << "-----------------------------------------------------------" << endl;
-        cout << "\t\t1.Ã°ÅİÅÅĞò" << endl;
-        cout << "\t\t2.¿ìËÙÅÅĞò" << endl;
-        cout << "\t\t3.²åÈëÅÅĞò" << endl;
-        cout << "\t\t4.ĞÔÄÜ²âÊÔ\n" << endl;
-        cout << "\t\t0.·µ»Ø" << endl;
-        cout << "\n×¢£ºÅÅĞò¹æÔò°´²íÂ·ÊıÉıĞòÅÅĞò£¬ĞÔÄÜ²âÊÔ²»»áÅÅĞòµ±Ç°Êı¾İ" << endl;
+        cout << "\t\t1.å†’æ³¡æ’åº" << endl;
+        cout << "\t\t2.å¿«é€Ÿæ’åº" << endl;
+        cout << "\t\t3.æ’å…¥æ’åº" << endl;
+        cout << "\t\t4.æ€§èƒ½æµ‹è¯•\n" << endl;
+        cout << "\t\t0.è¿”å›" << endl;
+        cout << "\næ³¨ï¼šæ’åºè§„åˆ™æŒ‰å²”è·¯æ•°å‡åºæ’åºï¼Œæ€§èƒ½æµ‹è¯•ä¸ä¼šæ’åºå½“å‰æ•°æ®" << endl;
         cout << "-----------------------------------------------------------" << endl;
-        cout << "ÇëÑ¡Ôñ£º";
+        cout << "è¯·é€‰æ‹©ï¼š";
         cin >> flag;
         if (!(flag >= 0 && flag <= 4)) {
-            cout << "ÇëÑ¡ÔñÕıÈ·µÄÑ¡Ïî!" << endl;
+            cout << "è¯·é€‰æ‹©æ­£ç¡®çš„é€‰é¡¹!" << endl;
         }
     } while (!(flag >= 0 && flag <= 4));
 
     switch (flag) {
         case 1:
             bubbleSort(MainActivity::roads);
-            cout << "ÅÅĞò³É¹¦£¡" << endl;
+            cout << "æ’åºæˆåŠŸï¼" << endl;
             break;
         case 2:
             quickSort(MainActivity::roads);
-            cout << "ÅÅĞò³É¹¦£¡" << endl;
+            cout << "æ’åºæˆåŠŸï¼" << endl;
             break;
         case 3:
             insertionSort(MainActivity::roads);
-            cout << "ÅÅĞò³É¹¦£¡" << endl;
+            cout << "æ’åºæˆåŠŸï¼" << endl;
             break;
         case 4:
             performanceTest();
-            cout << "²âÊÔÍê±Ï£¡" << endl;
+            cout << "æµ‹è¯•å®Œæ¯•ï¼" << endl;
             break;
         case 0:
             return;
@@ -58,7 +58,7 @@ void SortUtil::bubbleSort(std::vector<Road> &arr) {
 }
 
 void SortUtil::quickSort(std::vector<Road> &arr) {
-    //Ö±½Óµ÷ÓÃalgorithmÖĞµÄsortº¯Êı£¨¿ìËÙÅÅĞò£©
+    //ç›´æ¥è°ƒç”¨algorithmä¸­çš„sortå‡½æ•°ï¼ˆå¿«é€Ÿæ’åºï¼‰
     std::sort(arr.begin(), arr.end());
 }
 
@@ -66,7 +66,7 @@ void SortUtil::insertionSort(std::vector<Road> &arr) {
     auto size = arr.size();
     for (int i = 0; i < size; ++i) {
         for (int j = i; j > 0; --j) {
-            //Ñ°ÕÒÒ»¸öÊÊºÏµÄÎ»ÖÃ´æ·Å£¨²åÈë£©
+            //å¯»æ‰¾ä¸€ä¸ªé€‚åˆçš„ä½ç½®å­˜æ”¾ï¼ˆæ’å…¥ï¼‰
             if (arr[j] < arr[j - 1]) {
                 swap(arr[j], arr[j - 1]);
             } else {
@@ -77,32 +77,32 @@ void SortUtil::insertionSort(std::vector<Road> &arr) {
 }
 
 void SortUtil::performanceTest() {
-    //·Ö±ğÇó³öÈı¸öÅÅĞòËùÓÃµÄÊ±¼ä
+    //åˆ†åˆ«æ±‚å‡ºä¸‰ä¸ªæ’åºæ‰€ç”¨çš„æ—¶é—´
     long long int time_b = getRunTotalTime(bubbleSort);
     long long int time_q = getRunTotalTime(quickSort);
     long long int time_i = getRunTotalTime(insertionSort);
-    cout << "Ã°ÅİÅÅĞòËùÓÃÊ±¼äÎª£º" << time_b << "Î¢Ãë£¬¿ìËÙÅÅĞòËùÓÃÊ±¼äÎª£º" << time_q << "Î¢Ãë£¬²åÈëÅÅĞòËùÓÃÊ±¼äÎª£º"
-         << time_i << "Î¢Ãë" << endl;
+    cout << "å†’æ³¡æ’åºæ‰€ç”¨æ—¶é—´ä¸ºï¼š" << time_b << "å¾®ç§’ï¼Œå¿«é€Ÿæ’åºæ‰€ç”¨æ—¶é—´ä¸ºï¼š" << time_q << "å¾®ç§’ï¼Œæ’å…¥æ’åºæ‰€ç”¨æ—¶é—´ä¸ºï¼š"
+         << time_i << "å¾®ç§’" << endl;
 }
 
-long long int SortUtil::getRunTotalTime(SortingFunction function) { //Ê¹ÓÃµÄº¯ÊıÖ¸Õë£¬½«Ëã·¨º¯ÊıÍ¨¹ı²ÎÊıµÄĞÎÊ½´«µİ¹ıÀ´
-    //½«Êı¾İÁÙÊ±´æ´¢µ½ÁÙÊ±Êı×éÖĞ
+long long int SortUtil::getRunTotalTime(SortingFunction function) { //ä½¿ç”¨çš„å‡½æ•°æŒ‡é’ˆï¼Œå°†ç®—æ³•å‡½æ•°é€šè¿‡å‚æ•°çš„å½¢å¼ä¼ é€’è¿‡æ¥
+    //å°†æ•°æ®ä¸´æ—¶å­˜å‚¨åˆ°ä¸´æ—¶æ•°ç»„ä¸­
     if (tempData.size() < MainActivity::roads.size()) {
-        //ÎªÁÙÊ±Êı×é·ÖÅä¿Õ¼ä£¬·ÀÖ¹Ô½½ç
+        //ä¸ºä¸´æ—¶æ•°ç»„åˆ†é…ç©ºé—´ï¼Œé˜²æ­¢è¶Šç•Œ
         tempData.resize(MainActivity::roads.size());
     }
     std::copy(MainActivity::roads.begin(), MainActivity::roads.end(), tempData.begin());
-    //»ñÈ¡Ö´ĞĞÖ®Ç°µÄÊ±¼ä£¬¾«È·µ½Î¢Ãë
+    //è·å–æ‰§è¡Œä¹‹å‰çš„æ—¶é—´ï¼Œç²¾ç¡®åˆ°å¾®ç§’
     long long int beforeTime = chrono::duration_cast<chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
-    //µ÷ÓÃ´«µİ¹ıÀ´µÄº¯Êı
+    //è°ƒç”¨ä¼ é€’è¿‡æ¥çš„å‡½æ•°
     function(tempData);
-    //Ö´ĞĞÖ®ºóµÄÊ±¼ä
+    //æ‰§è¡Œä¹‹åçš„æ—¶é—´
     long long int afterTime = chrono::duration_cast<chrono::microseconds>(
             std::chrono::system_clock::now().time_since_epoch()).count();
-    //Çå¿ÕÁÙÊ±Êı×é
+    //æ¸…ç©ºä¸´æ—¶æ•°ç»„
     tempData.clear();
-    //·µ»ØÅÅĞòËã·¨Ö´ĞĞµÄ×ÜÊ±¼ä
+    //è¿”å›æ’åºç®—æ³•æ‰§è¡Œçš„æ€»æ—¶é—´
     return afterTime - beforeTime;
 }
 

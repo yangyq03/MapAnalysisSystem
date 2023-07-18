@@ -1,9 +1,9 @@
 #include "include/MainActivity.h"
 #include "include/BinaryFileHandler.h"
 
-//¶ş½øÖÆÎÄ¼şµÄ¾ø¶ÔÂ·¾¶
+//äºŒè¿›åˆ¶æ–‡ä»¶çš„ç»å¯¹è·¯å¾„
 const std::string BINARY_FILE_NAME = R"(E:\C++\MapAnalysisSystem\TextFile\BinaryFile.bin)";
-//ÎÄ±¾ÎÄ¼şµÄ¾ø¶ÔÂ·¾¶(Êı¾İµ¼ÈëÊ±Ê¹ÓÃ)
+//æ–‡æœ¬æ–‡ä»¶çš„ç»å¯¹è·¯å¾„(æ•°æ®å¯¼å…¥æ—¶ä½¿ç”¨)
 const std::string DATA_FILE_NAME = R"(E:\C++\MapAnalysisSystem\TextFile\DataFile.txt)";
 
 int main() {

@@ -3,15 +3,15 @@
 void PrintUtil::print(const std::vector<Road> &arr) {
     int i = 1;
     cout << "-----------------------------------------------------------" << endl;
-    if (arr.empty()) cout << "\t\t\t  ÎÞÊý¾Ý" << endl;
+    if (arr.empty()) cout << "\t\t\t  æ— æ•°æ®" << endl;
     for (const auto &item: arr) {
-        cout << "ÐòºÅ\tLinkID\t·ÖÀà±àºÅ\t²íÂ·Êý\tÓÐÎÞÃû³Æ\tµÀÂ·Ãû³Æ" << endl;
+        cout << "åºå·\tLinkID\tåˆ†ç±»ç¼–å·\tå²”è·¯æ•°\tæœ‰æ— åç§°\té“è·¯åç§°" << endl;
         cout << i++ << "\t" << item.getLinkId() << "\t" << item.getCategory() << "\t\t" << item.getForkNumber()
              << "\t" << item.getIsHaveName() << "\t\t" << item.getRoadName() << "\n" << endl;
     }
     cout << "-----------------------------------------------------------" << endl;
     if (!arr.empty()) {
-        cout << "\t\t\t¹²" << arr.size() << "ÌõÊý¾Ý" << endl;
+        cout << "\t\t\tå…±" << arr.size() << "æ¡æ•°æ®" << endl;
         cout << "-----------------------------------------------------------" << endl;
     }
 }

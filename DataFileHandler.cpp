@@ -3,25 +3,25 @@
 
 bool DataFileHandler::readFile(const std::string &dataFileName) {
 
-    //´ò¿ªÎÄ¼ş
+    //æ‰“å¼€æ–‡ä»¶
     FILE *fp_open = fopen(dataFileName.c_str(), "r");
 
-    //ÅĞ¿Õ
+    //åˆ¤ç©º
     if (fp_open == nullptr) {
-        std::cout << "ÎÄ¼ş´ò¿ªÊ§°Ü£¬Çë¼ì²éÎÄ¼şÂ·¾¶ÊÇ·ñÕıÈ·£¡" << std::endl;
+        std::cout << "æ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼Œè¯·æ£€æŸ¥æ–‡ä»¶è·¯å¾„æ˜¯å¦æ­£ç¡®ï¼" << std::endl;
         return false;
     }
 
-    //Í³¼ÆÊı¾İµÄÌõÊı
+    //ç»Ÿè®¡æ•°æ®çš„æ¡æ•°
     int count = 0;
 
-    //ÊÇ·ñ±£ÁôroadsÁĞ±íÖĞµÄÔ­ÓĞÊı¾İ
-    std::cout << "ÎÄ¼ş¶ÁÈ¡³É¹¦£¬ÊÇ·ñ±£Áôµ±Ç°Êı¾İ?(y/n)£¬È¡ÏûÇëÊäÈë0" << std::endl;
+    //æ˜¯å¦ä¿ç•™roadsåˆ—è¡¨ä¸­çš„åŸæœ‰æ•°æ®
+    std::cout << "æ–‡ä»¶è¯»å–æˆåŠŸï¼Œæ˜¯å¦ä¿ç•™å½“å‰æ•°æ®?(y/n)ï¼Œå–æ¶ˆè¯·è¾“å…¥0" << std::endl;
     std::string flag;
     do {
         std::cin >> flag;
         if (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0") {
-            std::cout << "ÇëÊäÈëÕıÈ·µÄÖ¸Áî£¡" << std::endl;
+            std::cout << "è¯·è¾“å…¥æ­£ç¡®çš„æŒ‡ä»¤ï¼" << std::endl;
         }
     } while (flag != "y" && flag != "Y" && flag != "n" && flag != "N" && flag != "0");
     if (flag == "n" || flag == "N") {
@@ -30,28 +30,28 @@ bool DataFileHandler::readFile(const std::string &dataFileName) {
         return false;
     }
 
-    //¿ªÊ¼¶ÁÎÄ¼ş
+    //å¼€å§‹è¯»æ–‡ä»¶
     while (!feof(fp_open)) {
-        //ÁÙÊ±µÄroadÊôĞÔ
+        //ä¸´æ—¶çš„roadå±æ€§
         int linkId;
         int category;
         int forkNumber;
         int isHaveName;
         char roadName[maxLength];
 
-        //Ò»Ö±¶ÁÈ¡µ½ÎÄ¼ş½áÎ²
+        //ä¸€ç›´è¯»å–åˆ°æ–‡ä»¶ç»“å°¾
         if (fscanf(fp_open, "%d %d %d %d", &linkId, &category, &forkNumber, &isHaveName) == EOF) {
             break;
         }
 
-        //´´½¨Ò»¸öÁÙÊ±µÄroad¶ÔÏó
+        //åˆ›å»ºä¸€ä¸ªä¸´æ—¶çš„roadå¯¹è±¡
         Road road;
         road.setLinkId(linkId);
         road.setCategory(category);
         road.setForkNumber(forkNumber);
         road.setIsHaveName(isHaveName);
 
-        //Èç¹ûÃ»ÓĞÃû×Ö¾ÍÌø¹ı¶ÁÈ¡roadName
+        //å¦‚æœæ²¡æœ‰åå­—å°±è·³è¿‡è¯»å–roadName
         if (!isHaveName) {
             road.setRoadName((char *) "--\0");
             MainActivity::roads.push_back(road);
@@ -59,16 +59,16 @@ bool DataFileHandler::readFile(const std::string &dataFileName) {
             continue;
         }
 
-        //ÓĞÃû×Ö¾Í½Ó×Å¶ÁÈ¡Ãû×Ö
+        //æœ‰åå­—å°±æ¥ç€è¯»å–åå­—
         fscanf(fp_open, "%s", roadName);
         road.setRoadName(roadName);
 
-        //°ÑÁÙÊ±µÄroad¶ÔÏópushµ½¶¯Ì¬Êı×éÖĞ
+        //æŠŠä¸´æ—¶çš„roadå¯¹è±¡pushåˆ°åŠ¨æ€æ•°ç»„ä¸­
         MainActivity::roads.push_back(road);
         ++count;
     }
 
-    std::cout << count << "ÌõÊı¾İµ¼Èë³É¹¦£¡" << std::endl;
+    std::cout << count << "æ¡æ•°æ®å¯¼å…¥æˆåŠŸï¼" << std::endl;
 
     fclose(fp_open);
 
@@ -77,29 +77,29 @@ bool DataFileHandler::readFile(const std::string &dataFileName) {
 
 bool DataFileHandler::writeFile() {
 
-    std::cout << "ÊÇ·ñ½øĞĞÊı¾İµ¼³ö£¿ÊÇÇëÊäÈëy" << std::endl;
+    std::cout << "æ˜¯å¦è¿›è¡Œæ•°æ®å¯¼å‡ºï¼Ÿæ˜¯è¯·è¾“å…¥y" << std::endl;
     std::string flag;
     std::cin >> flag;
     if (flag != "y") return false;
 
-    std::cout << "ÇëÊäÈëµ¼³öÎÄ¼şµÄ¾ø¶ÔÂ·¾¶£º£¨²»°üº¬À©Õ¹Ãû<.txt>£¬ÇÒ¸ÃÄ¿Â¼ÏÂ²»Ó¦º¬ÓĞÖØÃûµÄÎÄ¼ş£¬·ñÔò»á±»¸²¸Ç£©" << std::endl;
+    std::cout << "è¯·è¾“å…¥å¯¼å‡ºæ–‡ä»¶çš„ç»å¯¹è·¯å¾„ï¼šï¼ˆä¸åŒ…å«æ‰©å±•å<.txt>ï¼Œä¸”è¯¥ç›®å½•ä¸‹ä¸åº”å«æœ‰é‡åçš„æ–‡ä»¶ï¼Œå¦åˆ™ä¼šè¢«è¦†ç›–ï¼‰" << std::endl;
     std::string fileName;
     std::cin >> fileName;
     fileName += ".txt";
 
-    //´ò¿ªÎÄ¼ş
+    //æ‰“å¼€æ–‡ä»¶
     FILE *fp_open = fopen(fileName.c_str(), "w+");
 
-    //ÅĞ¿Õ
+    //åˆ¤ç©º
     if (fp_open == nullptr) {
-        std::cout << "ÎÄ¼ş´´½¨Ê§°Ü£¡" << std::endl;
+        std::cout << "æ–‡ä»¶åˆ›å»ºå¤±è´¥ï¼" << std::endl;
         return false;
     }
 
-    //Í³¼ÆÊı¾İµÄÌõÊı
+    //ç»Ÿè®¡æ•°æ®çš„æ¡æ•°
     int count = 0;
 
-    //ÒÀ´ÎĞ´ÈëÊı¾İµ½ÎÄ¼ş
+    //ä¾æ¬¡å†™å…¥æ•°æ®åˆ°æ–‡ä»¶
     for (const auto &item: MainActivity::roads) {
         if (!item.getIsHaveName()) {
             fprintf(fp_open, "%d %d %d %d\n", item.getLinkId(), item.getCategory(), item.getForkNumber(),
@@ -112,7 +112,7 @@ bool DataFileHandler::writeFile() {
         ++count;
     }
 
-    std::cout << count << "ÌõÊı¾İµ¼³ö³É¹¦£¡" << std::endl;
+    std::cout << count << "æ¡æ•°æ®å¯¼å‡ºæˆåŠŸï¼" << std::endl;
 
     fclose(fp_open);
 

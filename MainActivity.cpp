@@ -15,37 +15,37 @@ void MainActivity::mainProcess(const std::string &binaryFileName, const std::str
             system("cls");
             cout << "/*************************Welcome*************************/" << endl;
             cout << "/***                                                   ***/" << endl;
-            cout << "/***                  µç×ÓµØÍ¼¹ÜÀíÏµÍ³                 ***/" << endl;
+            cout << "/***                  ç”µå­åœ°å›¾ç®¡ç†ç³»ç»Ÿ                 ***/" << endl;
             cout << "/***                                                   ***/" << endl;
             cout << "/*********************************************************/" << endl;
 
             cout << "-----------------------------------------------------------" << endl;
-            cout << "\t\t 1.¶ÁÈ¡ÎÄ¼þ(¶þ½øÖÆÎÄ¼þ)" << endl;
-            cout << "\t\t 2.Ð´ÈëÎÄ¼þ(¶þ½øÖÆÎÄ¼þ)" << endl;
-            cout << "\t\t 3.Êä³öµ±Ç°ËùÓÐÊý¾Ý" << endl;
-            cout << "\t\t 4.ÅÅÐò" << endl;
-            cout << "\t\t 5.ÐÅÏ¢²éÑ¯ÓëÐÞ¸Ä" << endl;
-            cout << "\t\t 6.Êý¾Ýµ¼Èë(ÎÄ±¾ÎÄ¼þ)" << endl;
-            cout << "\t\t 7.Êý¾Ýµ¼³ö(ÎÄ±¾ÎÄ¼þ)\n" << endl;
-            cout << "\t\t 0.ÍË³ö" << endl;
+            cout << "\t\t 1.è¯»å–æ–‡ä»¶(äºŒè¿›åˆ¶æ–‡ä»¶)" << endl;
+            cout << "\t\t 2.å†™å…¥æ–‡ä»¶(äºŒè¿›åˆ¶æ–‡ä»¶)" << endl;
+            cout << "\t\t 3.è¾“å‡ºå½“å‰æ‰€æœ‰æ•°æ®" << endl;
+            cout << "\t\t 4.æŽ’åº" << endl;
+            cout << "\t\t 5.ä¿¡æ¯æŸ¥è¯¢ä¸Žä¿®æ”¹" << endl;
+            cout << "\t\t 6.æ•°æ®å¯¼å…¥(æ–‡æœ¬æ–‡ä»¶)" << endl;
+            cout << "\t\t 7.æ•°æ®å¯¼å‡º(æ–‡æœ¬æ–‡ä»¶)\n" << endl;
+            cout << "\t\t 0.é€€å‡º" << endl;
             cout << "-----------------------------------------------------------" << endl;
 
-            cout << "ÇëÑ¡Ôñ£º";
+            cout << "è¯·é€‰æ‹©ï¼š";
             cin >> flag;
             if (!(flag >= 0 && flag <= 7)) {
-                cout << "ÇëÑ¡ÔñÕýÈ·µÄÑ¡Ïî!" << endl;
+                cout << "è¯·é€‰æ‹©æ­£ç¡®çš„é€‰é¡¹!" << endl;
                 system("pause");
             }
         } while (!(flag >= 0 && flag <= 7));
 
-        //¸ù¾ÝÓÃ»§ÊäÈëÑ¡ÔñÏàÓ¦µÄÂß¼­
+        //æ ¹æ®ç”¨æˆ·è¾“å…¥é€‰æ‹©ç›¸åº”çš„é€»è¾‘
         switch (flag) {
             case 1:
                 BinaryFileHandler::readFile(binaryFileName);
                 break;
             case 2:
                 if (roads.empty()) {
-                    cout << "µ±Ç°ÔÝÎÞÊý¾Ý£¬Çëµ¼ÈëÊý¾ÝÔÙ³¢ÊÔ!" << endl;
+                    cout << "å½“å‰æš‚æ— æ•°æ®ï¼Œè¯·å¯¼å…¥æ•°æ®å†å°è¯•!" << endl;
                     break;
                 }
                 BinaryFileHandler::writeFile(binaryFileName);
@@ -55,14 +55,14 @@ void MainActivity::mainProcess(const std::string &binaryFileName, const std::str
                 break;
             case 4:
                 if (roads.empty()) {
-                    cout << "µ±Ç°ÔÝÎÞÊý¾Ý£¬Çëµ¼ÈëÊý¾ÝÔÙ³¢ÊÔ!" << endl;
+                    cout << "å½“å‰æš‚æ— æ•°æ®ï¼Œè¯·å¯¼å…¥æ•°æ®å†å°è¯•!" << endl;
                     break;
                 }
                 SortUtil::sortMenu();
                 break;
             case 5:
                 if (roads.empty()) {
-                    cout << "µ±Ç°ÔÝÎÞÊý¾Ý£¬Çëµ¼ÈëÊý¾ÝÔÙ³¢ÊÔ!" << endl;
+                    cout << "å½“å‰æš‚æ— æ•°æ®ï¼Œè¯·å¯¼å…¥æ•°æ®å†å°è¯•!" << endl;
                     break;
                 }
                 SearchAndModifyUtils::searchMenu();
@@ -72,7 +72,7 @@ void MainActivity::mainProcess(const std::string &binaryFileName, const std::str
                 break;
             case 7:
                 if (roads.empty()) {
-                    cout << "µ±Ç°ÔÝÎÞÊý¾Ý£¬Çëµ¼ÈëÊý¾ÝÔÙ³¢ÊÔ!" << endl;
+                    cout << "å½“å‰æš‚æ— æ•°æ®ï¼Œè¯·å¯¼å…¥æ•°æ®å†å°è¯•!" << endl;
                     break;
                 }
                 DataFileHandler::writeFile();

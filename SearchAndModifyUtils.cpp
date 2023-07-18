@@ -8,22 +8,22 @@ using namespace std;
 void SearchAndModifyUtils::searchMenu() {
     int flag;
     do {
-        cout << "\nÐÅÏ¢²éÑ¯" << endl;
+        cout << "\nä¿¡æ¯æŸ¥è¯¢" << endl;
         cout << "-----------------------------------------------------------" << endl;
-        cout << "\t\t1.LinkId²éÑ¯" << endl;
-        cout << "\t\t2.·ÖÀà±àºÅ²éÑ¯\n" << endl;
-        cout << "\t\t0.·µ»Ø" << endl;
+        cout << "\t\t1.LinkIdæŸ¥è¯¢" << endl;
+        cout << "\t\t2.åˆ†ç±»ç¼–å·æŸ¥è¯¢\n" << endl;
+        cout << "\t\t0.è¿”å›ž" << endl;
         cout << "-----------------------------------------------------------" << endl;
-        cout << "ÇëÑ¡Ôñ£º";
+        cout << "è¯·é€‰æ‹©ï¼š";
         cin >> flag;
         if (!(flag >= 0 && flag <= 2)) {
-            cout << "ÇëÑ¡ÔñÕýÈ·µÄÑ¡Ïî!" << endl;
+            cout << "è¯·é€‰æ‹©æ­£ç¡®çš„é€‰é¡¹!" << endl;
         }
     } while (!(flag >= 0 && flag <= 2));
 
     switch (flag) {
         case 1:
-            cout << "ÇëÊäÈëÒª²éÕÒµÄLinkId£º" << endl;
+            cout << "è¯·è¾“å…¥è¦æŸ¥æ‰¾çš„LinkIdï¼š" << endl;
             int targetLinkId;
             cin >> targetLinkId;
             searchByLinkId(targetLinkId);
@@ -31,7 +31,7 @@ void SearchAndModifyUtils::searchMenu() {
             modifyMenu();
             break;
         case 2:
-            cout << "ÇëÊäÈëÒª²éÕÒµÄ·ÖÀà±àºÅ£º" << endl;
+            cout << "è¯·è¾“å…¥è¦æŸ¥æ‰¾çš„åˆ†ç±»ç¼–å·ï¼š" << endl;
             int targetCategory;
             cin >> targetCategory;
             searchByCategory(targetCategory);
@@ -46,11 +46,11 @@ void SearchAndModifyUtils::searchMenu() {
 }
 
 void SearchAndModifyUtils::searchByLinkId(const int &target) {
-    //ÏÈÇå¿ÕÁÙÊ±´æ´¢Êý×é
+    //å…ˆæ¸…ç©ºä¸´æ—¶å­˜å‚¨æ•°ç»„
     tempResults.clear();
     resultIndex.clear();
     for (int i = 0; i < MainActivity::roads.size(); ++i) {
-        //ÓÐ·ûºÏµÄ¾Ípush½øÈ¥
+        //æœ‰ç¬¦åˆçš„å°±pushè¿›åŽ»
         if (MainActivity::roads[i].getLinkId() == target) {
             tempResults.push_back(MainActivity::roads[i]);
             resultIndex.push_back(i);
@@ -59,11 +59,11 @@ void SearchAndModifyUtils::searchByLinkId(const int &target) {
 }
 
 void SearchAndModifyUtils::searchByCategory(const int &target) {
-    //ÏÈÇå¿ÕÁÙÊ±´æ´¢Êý×é
+    //å…ˆæ¸…ç©ºä¸´æ—¶å­˜å‚¨æ•°ç»„
     tempResults.clear();
     resultIndex.clear();
     for (int i = 0; i < MainActivity::roads.size(); ++i) {
-        //ÓÐ·ûºÏµÄ¾Ípush½øÈ¥
+        //æœ‰ç¬¦åˆçš„å°±pushè¿›åŽ»
         if (MainActivity::roads[i].getCategory() == target) {
             tempResults.push_back(MainActivity::roads[i]);
             resultIndex.push_back(i);
@@ -72,44 +72,44 @@ void SearchAndModifyUtils::searchByCategory(const int &target) {
 }
 
 int SearchAndModifyUtils::isVariousResult() {
-    //²éÑ¯µÄ½á¹ûÓÐ¶à¸ö
+    //æŸ¥è¯¢çš„ç»“æžœæœ‰å¤šä¸ª
     if (tempResults.size() > 1) {
-        cout << "²éÑ¯µÄ½á¹ûÎª¶à¸ö£¬ÇëÎÊÄãÒªÐÞ¸ÄÄÄÒ»¸ö£¿(ÐòºÅ)" << endl;
+        cout << "æŸ¥è¯¢çš„ç»“æžœä¸ºå¤šä¸ªï¼Œè¯·é—®ä½ è¦ä¿®æ”¹å“ªä¸€ä¸ªï¼Ÿ(åºå·)" << endl;
         int index;
         do {
             cin >> index;
             if (!(index >= 1 && index <= tempResults.size())) {
-                cout << "ÇëÑ¡ÔñÕýÈ·µÄÑ¡Ïî!" << endl;
+                cout << "è¯·é€‰æ‹©æ­£ç¡®çš„é€‰é¡¹!" << endl;
             }
         } while (!(index >= 1 && index <= tempResults.size()));
-        //Í¨¹ýÓÃ»§ÊäÈëµÄ±êºÅ£¬ÔÚresultIndexÕÒµ½Ô­Ê¼Êý¾ÝµÄË÷Òý²¢·µ»Ø
+        //é€šè¿‡ç”¨æˆ·è¾“å…¥çš„æ ‡å·ï¼Œåœ¨resultIndexæ‰¾åˆ°åŽŸå§‹æ•°æ®çš„ç´¢å¼•å¹¶è¿”å›ž
         return resultIndex[index - 1];
     }
-    //²éÑ¯½á¹ûÖ»ÓÐÒ»¸ö
+    //æŸ¥è¯¢ç»“æžœåªæœ‰ä¸€ä¸ª
     return resultIndex[0];
 }
 
 void SearchAndModifyUtils::modifyMenu() {
-    std::cout << "ÊÇ·ñ½øÐÐÊý¾ÝÐÞ¸Ä£¿(y/n)" << std::endl;
+    std::cout << "æ˜¯å¦è¿›è¡Œæ•°æ®ä¿®æ”¹ï¼Ÿ(y/n)" << std::endl;
     std::string temp;
     std::cin >> temp;
     if (temp != "y") return;
 
     int flag;
     do {
-        cout << "\nÐÞ¸ÄÊý¾Ý" << endl;
+        cout << "\nä¿®æ”¹æ•°æ®" << endl;
         cout << "-----------------------------------------------------------" << endl;
-        cout << "\t\t1.ÐÞ¸ÄLinkId" << endl;
-        cout << "\t\t2.ÐÞ¸Ä·ÖÀà±àºÅ" << endl;
-        cout << "\t\t3.ÐÞ¸Ä²íÂ·Êý" << endl;
-        cout << "\t\t4.ÐÞ¸ÄÓÐÎÞÃû³Æ" << endl;
-        cout << "\t\t5.ÐÞ¸ÄÃû³Æ\n" << endl;
-        cout << "\t\t0.·µ»Ø" << endl;
+        cout << "\t\t1.ä¿®æ”¹LinkId" << endl;
+        cout << "\t\t2.ä¿®æ”¹åˆ†ç±»ç¼–å·" << endl;
+        cout << "\t\t3.ä¿®æ”¹å²”è·¯æ•°" << endl;
+        cout << "\t\t4.ä¿®æ”¹æœ‰æ— åç§°" << endl;
+        cout << "\t\t5.ä¿®æ”¹åç§°\n" << endl;
+        cout << "\t\t0.è¿”å›ž" << endl;
         cout << "-----------------------------------------------------------" << endl;
-        cout << "ÇëÑ¡Ôñ£º";
+        cout << "è¯·é€‰æ‹©ï¼š";
         cin >> flag;
         if (!(flag >= 0 && flag <= 5)) {
-            cout << "ÇëÑ¡ÔñÕýÈ·µÄÑ¡Ïî!" << endl;
+            cout << "è¯·é€‰æ‹©æ­£ç¡®çš„é€‰é¡¹!" << endl;
         }
     } while (!(flag >= 0 && flag <= 5));
 
@@ -138,34 +138,34 @@ void SearchAndModifyUtils::modifyMenu() {
 
 void SearchAndModifyUtils::modifyLinkId(const int &roadIndex) {
     int targetValue;
-    cout << "ÇëÊäÈëÐÞ¸ÄºóµÄLinkId£º" << endl;
+    cout << "è¯·è¾“å…¥ä¿®æ”¹åŽçš„LinkIdï¼š" << endl;
     cin >> targetValue;
     MainActivity::roads[roadIndex].setLinkId(targetValue);
-    cout << "ÐÞ¸Ä³É¹¦£¡" << endl;
+    cout << "ä¿®æ”¹æˆåŠŸï¼" << endl;
 }
 
 void SearchAndModifyUtils::modifyCategory(const int &roadIndex) {
     int targetValue;
-    cout << "ÇëÊäÈëÐÞ¸ÄºóµÄ·ÖÀà±àºÅ£º" << endl;
+    cout << "è¯·è¾“å…¥ä¿®æ”¹åŽçš„åˆ†ç±»ç¼–å·ï¼š" << endl;
     cin >> targetValue;
     MainActivity::roads[roadIndex].setCategory(targetValue);
-    cout << "ÐÞ¸Ä³É¹¦£¡" << endl;
+    cout << "ä¿®æ”¹æˆåŠŸï¼" << endl;
 }
 
 void SearchAndModifyUtils::modifyForkNumber(const int &roadIndex) {
     int targetValue;
-    cout << "ÇëÊäÈëÐÞ¸ÄºóµÄ²íÂ·Êý£º" << endl;
+    cout << "è¯·è¾“å…¥ä¿®æ”¹åŽçš„å²”è·¯æ•°ï¼š" << endl;
     cin >> targetValue;
     MainActivity::roads[roadIndex].setForkNumber(targetValue);
-    cout << "ÐÞ¸Ä³É¹¦£¡" << endl;
+    cout << "ä¿®æ”¹æˆåŠŸï¼" << endl;
 }
 
 void SearchAndModifyUtils::modifyIsHaveName(const int &roadIndex) {
     int targetValue;
-    cout << "ÇëÊäÈëÐÞ¸ÄºóµÄÓÐÎÞÃû³Æ£º" << endl;
+    cout << "è¯·è¾“å…¥ä¿®æ”¹åŽçš„æœ‰æ— åç§°ï¼š" << endl;
     cin >> targetValue;
     if (MainActivity::roads[roadIndex].getIsHaveName() == 0 && targetValue == 1) {
-        cout << "ÇëÊäÈëµÀÂ·Ãû³Æ£º" << endl;
+        cout << "è¯·è¾“å…¥é“è·¯åç§°ï¼š" << endl;
         char roadName[maxLength];
         scanf("%s", roadName);
         MainActivity::roads[roadIndex].setRoadName(roadName);
@@ -173,23 +173,23 @@ void SearchAndModifyUtils::modifyIsHaveName(const int &roadIndex) {
         MainActivity::roads[roadIndex].setRoadName((char *) "--\0");
     }
     MainActivity::roads[roadIndex].setIsHaveName(targetValue);
-    cout << "ÐÞ¸Ä³É¹¦£¡" << endl;
+    cout << "ä¿®æ”¹æˆåŠŸï¼" << endl;
 }
 
 void SearchAndModifyUtils::modifyRoadName(const int &roadIndex) {
     if (MainActivity::roads[roadIndex].getIsHaveName() == 0) {
-        //Ã»ÓÐÃû³Æ¾ÍÏÈ°ÑisHaveNameÊôÐÔÖµ¸Ä³É 1£¬ÔÙ½øÒ»²½ÐÞ¸Ä
-        cout << "µ±Ç°µÀÂ·Ã»ÓÐÃû³Æ£¬ÊÇ·ñ½«ÆäÉèÖÃ³ÉÓÐÃû³Æ£¿(y/n)" << endl;
+        //æ²¡æœ‰åç§°å°±å…ˆæŠŠisHaveNameå±žæ€§å€¼æ”¹æˆ 1ï¼Œå†è¿›ä¸€æ­¥ä¿®æ”¹
+        cout << "å½“å‰é“è·¯æ²¡æœ‰åç§°ï¼Œæ˜¯å¦å°†å…¶è®¾ç½®æˆæœ‰åç§°ï¼Ÿ(y/n)" << endl;
         string flag;
         cin >> flag;
         if (flag != "y" && flag != "Y") return;
         MainActivity::roads[roadIndex].setIsHaveName(1);
     }
     char targetValue[maxLength];
-    cout << "ÇëÊäÈëÐÞ¸ÄºóµÄÃû³Æ£º" << endl;
+    cout << "è¯·è¾“å…¥ä¿®æ”¹åŽçš„åç§°ï¼š" << endl;
     cin >> targetValue;
     MainActivity::roads[roadIndex].setRoadName(targetValue);
-    cout << "ÐÞ¸Ä³É¹¦£¡" << endl;
+    cout << "ä¿®æ”¹æˆåŠŸï¼" << endl;
 }
 
 std::vector<Road> SearchAndModifyUtils::tempResults;
